@@ -35,7 +35,7 @@ Or simply download the ZIP and extract it.
 
 ### 5. Usage
 
-Visit https://students.cuchd.in/
+Visit the official cuims page
 
 The extension will automatically:
 - Fill in your User ID and Password
