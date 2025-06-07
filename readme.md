@@ -46,7 +46,6 @@ The extension will automatically:
 
 - Your credentials are stored locally in your browser using Chrome's secure storage.
 - This extension does not transmit your credentials anywhere else.
-- For your safety, always use extensions from trusted sources and review the code if possible.
 
 ## 🧩 Troubleshooting
 
