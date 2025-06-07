@@ -14,7 +14,7 @@ CU Login Assistant is a Chrome extension that automates the login process for th
 ### 1. Download or Clone the Repository
 
 ```bash
-git clone [https://github.com/Gautam-cpp/CU-Login-Automation-Extension.git]
+git clone https://github.com/Gautam-cpp/CU-Login-Automation-Extension.git
 ```
 
 Or simply download the ZIP and extract it.
