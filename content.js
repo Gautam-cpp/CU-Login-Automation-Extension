@@ -85,7 +85,7 @@ function enhanceImage(ctx, imageData) {
   return imageData;
 }
 
-async function solveCaptcha(maxRetries = 3) {
+async function solveCaptcha(maxRetries = 5) {
   const Tesseract = await loadTesseract();
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
