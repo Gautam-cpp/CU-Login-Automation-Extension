@@ -1,6 +1,6 @@
 {
     "name": "CU Login Assistant",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Automatically logs into the Chandīgarh University student portal",
     "manifest_version": 3,
     "permissions": ["storage", "activeTab", "scripting"],
