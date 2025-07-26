@@ -292,6 +292,86 @@ input[type="password"]:focus {
   100% { transform: rotate(360deg); }
 }
 
+.footer {
+  padding: 15px 25px;
+  text-align: center;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  margin-top: 10px;
+}
+
+.footer p {
+  font-size: 12px;
+  color: #6c757d;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.footer a {
+  color: #e53e3e;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer a:hover {
+  color: #c53030;
+  text-decoration: underline;
+}
+
+.footer a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.footer a:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+/* Pumping Heart Animation */
+.heart {
+  color: #e53e3e;
+  font-size: 14px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.saved-container + .footer {
+  margin-top: 0;
+  border-top: 1px solid #e9ecef;
+}
+
 /* Responsive adjustments */
 @media (max-width: 400px) {
   body {
