@@ -1,70 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CU Login Assistant</title>
   <link rel="stylesheet" href="popup.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">
-        <i class="fas fa-graduation-cap"></i>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-container">
+        <i class="fas fa-graduation-cap logo-icon"></i>
       </div>
-      <h1>CU Login Assistant</h1>
-      <p class="subtitle">Secure credential management</p>
-    </div>
-    
-    <div id="login-form" class="form-container">
-      <div class="form-group">
-        <label for="userId">
-          <i class="fas fa-user"></i>
-          User ID
-        </label>
-        <input type="text" id="userId" placeholder="Enter your User ID" autocomplete="username">
+      <div class="title-container">
+        <h1>CU Login Assistant</h1>
+        <p>Secure Credential Manager</p>
       </div>
-      
-      <div class="form-group">
-        <label for="password">
-          <i class="fas fa-lock"></i>
-          Password
-        </label>
-        <div class="password-container">
-          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
-          <button id="togglePassword" type="button" class="toggle-btn">
-            <i class="fas fa-eye"></i>
-          </button>
+    </header>
+
+    <main class="app-content">
+      <!-- Login Form State -->
+      <div id="login-form" class="view-state">
+        <div class="input-group">
+          <label for="userId">User ID</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="userId" placeholder="Enter your User ID" autocomplete="username">
+          </div>
         </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+            <button id="togglePassword" type="button" class="icon-btn" aria-label="Toggle password visibility">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button id="saveButton" type="button" class="btn btn-primary">
+          <span class="btn-text">Save Credentials</span>
+          <div class="spinner"></div>
+        </button>
       </div>
-      
-      <button id="saveButton" type="button" class="primary-btn">
-        <i class="fas fa-save"></i>
-        Save Credentials
-      </button>
-    </div>
-    
-    <div id="status-message" class="status-message"></div>
-    
-    <div id="saved-credentials" class="saved-container" style="display: none;">
-      <div class="success-icon">
-        <i class="fas fa-check-circle"></i>
+
+      <!-- Saved State -->
+      <div id="saved-credentials" class="view-state" style="display: none;">
+        <div class="success-card">
+          <div class="success-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <h3>Credentials Saved</h3>
+          <p>Your login information is securely stored.</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-label">Auto Login</span>
+              <span class="setting-desc">Automatically log in when visiting CU</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="autoLoginToggleSaved">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <button id="editButton" type="button" class="btn btn-outline">
+          <i class="fas fa-pen"></i> Update Credentials
+        </button>
       </div>
-      <h3>Credentials Saved</h3>
-      <p>Your login information is securely stored</p>
-      <button id="editButton" type="button" class="secondary-btn">
-        <i class="fas fa-edit"></i>
-        Edit Credentials
-      </button>
-    </div>
-    
-    <!-- Attribution Footer with Pumping Heart -->
-    <div class="footer">
-      <p>Developed with <span class="heart">❤️</span> by <a href="https://github.com/gautam-cpp" target="_blank"> Gautam</a></p>
-    </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <footer class="app-footer">
+      <p>Developed with <span class="heart">❤️</span> by <a href="https://github.com/gautam-cpp"
+          target="_blank">Gautam</a></p>
+    </footer>
   </div>
-  
+
   <script src="popup.js"></script>
 </body>
+
 </html>

@@ -1,10 +1,22 @@
 async function autoLogin() {
   try {
     const credentials = await new Promise((resolve) => {
-      chrome.runtime.sendMessage({action: "getCredentials"}, (response) => {
-        resolve(response);
+      chrome.runtime.sendMessage({ action: "getCredentials" }, (response) => {
+        if (chrome.runtime.lastError) {
+          console.error("CU Login Assistant: Error getting credentials:", chrome.runtime.lastError);
+          resolve({});
+        } else {
+          resolve(response || {});
+        }
       });
     });
+
+    console.log("CU Login Assistant: Received credentials check.", credentials);
+
+    if (credentials.autoLoginEnabled === false) {
+      console.log("CU Login Assistant: Auto-login is manually disabled.");
+      return;
+    }
 
     if (!credentials.userId || !credentials.password) {
       console.log("Credentials not found. Please set up the extension first.");
@@ -42,22 +54,22 @@ function randomDelay() {
 function waitForElement(selector, timeout) {
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
-    
+
     const checkElement = () => {
       const element = document.querySelector(selector);
       if (element) {
         resolve(element);
         return;
       }
-      
+
       if (Date.now() - startTime > timeout) {
         reject(new Error(`Timeout waiting for ${selector}`));
         return;
       }
-      
+
       setTimeout(checkElement, 100);
     };
-    
+
     checkElement();
   });
 }
@@ -74,20 +86,20 @@ async function loadTesseract() {
 
 function enhanceImage(ctx, imageData) {
   let data = imageData.data;
-  
+
   for (let i = 0; i < data.length; i += 4) {
     const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
     const enhanced = gray < 100 ? 0 : (gray > 180 ? 255 : gray * 1.5);
     const threshold = enhanced > 128 ? 255 : 0;
     data[i] = data[i + 1] = data[i + 2] = threshold;
   }
-  
+
   return imageData;
 }
 
 async function solveCaptcha(maxRetries = 5) {
   const Tesseract = await loadTesseract();
-  
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const captchaImg = await waitForElement('#imgCaptcha', 5000);
@@ -116,7 +128,7 @@ async function solveCaptcha(maxRetries = 5) {
       const result = await Tesseract.recognize(
         processedImage,
         'eng',
-        { 
+        {
           logger: m => console.log(m),
           tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
           tessedit_pageseg_mode: Tesseract.PSM.SINGLE_WORD
@@ -137,7 +149,7 @@ async function solveCaptcha(maxRetries = 5) {
     } catch (error) {
       console.log(`Captcha attempt ${attempt} failed:`, error);
       if (attempt === maxRetries) throw error;
-      
+
       const refreshBtn = document.querySelector('#refreshCaptcha, #btnRefreshCaptcha, .refresh-captcha');
       if (refreshBtn) {
         refreshBtn.click();
@@ -148,8 +160,8 @@ async function solveCaptcha(maxRetries = 5) {
 }
 
 function isLoginPage() {
-  return document.querySelector('#txtUserId') || 
-         document.querySelector('#txtLoginPassword');
+  return document.querySelector('#txtUserId') ||
+    document.querySelector('#txtLoginPassword');
 }
 
 function initializeAutoLogin() {
