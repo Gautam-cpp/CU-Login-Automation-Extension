@@ -20,7 +20,7 @@
       {
         "matches": ["*://students.cuchd.in/*"],
         "js": ["lib/tesseract.min.js", "content.js"],
-        "run_at": "document_idle"
+        "run_at": "document_start"
       }
     ],
     "content_security_policy": {

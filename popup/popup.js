@@ -7,10 +7,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
     const savedCredentials = document.getElementById('saved-credentials');
     const autoLoginToggleSaved = document.getElementById('autoLoginToggleSaved');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const darkModeToggleSaved = document.getElementById('darkModeToggleSaved');
     const toastContainer = document.getElementById('toast-container');
 
+    function applyDarkModeUI(isDark) {
+        if (isDark) {
+            document.body.classList.add('dark-mode');
+            if (themeToggleBtn) themeToggleBtn.querySelector('i').className = 'fas fa-sun';
+            if (darkModeToggleSaved) darkModeToggleSaved.checked = true;
+        } else {
+            document.body.classList.remove('dark-mode');
+            if (themeToggleBtn) themeToggleBtn.querySelector('i').className = 'fas fa-moon';
+            if (darkModeToggleSaved) darkModeToggleSaved.checked = false;
+        }
+    }
+
+    function toggleDarkMode(isDark) {
+        chrome.storage.local.set({ darkModeEnabled: isDark }, function () {
+            applyDarkModeUI(isDark);
+            showToast(isDark ? 'Dark mode enabled' : 'Dark mode disabled', 'success');
+        });
+    }
+
     // Load saved data
-    chrome.storage.local.get(['userId', 'password', 'autoLoginEnabled'], function (result) {
+    chrome.storage.local.get(['userId', 'password', 'autoLoginEnabled', 'darkModeEnabled'], function (result) {
         if (result.userId && result.password) {
             showSavedState();
         } else {
@@ -20,7 +41,24 @@ document.addEventListener('DOMContentLoaded', function () {
         if (autoLoginToggleSaved) {
             autoLoginToggleSaved.checked = result.autoLoginEnabled !== false; // Default to true
         }
+
+        applyDarkModeUI(!!result.darkModeEnabled);
     });
+
+    // Theme toggle button click
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function () {
+            const currentDark = document.body.classList.contains('dark-mode');
+            toggleDarkMode(!currentDark);
+        });
+    }
+
+    // Settings card dark mode toggle change
+    if (darkModeToggleSaved) {
+        darkModeToggleSaved.addEventListener('change', function () {
+            toggleDarkMode(this.checked);
+        });
+    }
 
     // Auto-login toggle handler
     if (autoLoginToggleSaved) {

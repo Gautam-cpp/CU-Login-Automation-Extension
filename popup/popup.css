@@ -6,8 +6,6 @@
   --text-primary: #1a1a1a;
   --text-secondary: #595959;
   --border-color: #e6e6e6;
-  --success-color: #E00404;
-  /* Using red for success too? No, usually keep green for success, but maybe the user wants strictly red/white. Use a complementary green or just stick to red/white branding. Let's keep a standard green for success state to avoid confusion, but maybe darker. */
   --success-color: #059669;
   --focus-ring: rgba(224, 4, 4, 0.15);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -16,6 +14,17 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body.dark-mode {
+  --bg-color: #0d1117;
+  --card-bg: #161b22;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --border-color: #21262d;
+  --focus-ring: rgba(224, 4, 4, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -32,10 +41,10 @@ body {
   min-height: 450px;
   font-family: var(--font-sans);
   background-color: var(--bg-color);
-  /* Ensure opaque background */
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.2s ease;
 }
 
 .app-container {
@@ -44,17 +53,152 @@ body {
   height: 100%;
   min-height: 450px;
   background-color: var(--bg-color);
-  /* Double ensure opaque background */
+  transition: background-color 0.3s ease;
 }
 
 /* Header */
 .app-header {
   background-color: var(--card-bg);
-  padding: 1.5rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+/* ── Dark Mode Element Overrides ── */
+body.dark-mode .app-container {
+  background-color: #0d1117;
+}
+
+body.dark-mode .app-header {
+  background-color: #161b22;
+  border-bottom-color: #21262d;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .logo-container {
+  background: rgba(224, 4, 4, 0.1);
+}
+
+body.dark-mode .input-wrapper input {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  border-color: #30363d;
+}
+
+body.dark-mode .input-wrapper input::placeholder {
+  color: #484f58;
+}
+
+body.dark-mode .input-wrapper input:focus {
+  border-color: #E00404;
+  box-shadow: 0 0 0 3px rgba(224, 4, 4, 0.15);
+}
+
+body.dark-mode .input-icon {
+  color: #484f58;
+}
+
+body.dark-mode .icon-btn {
+  color: #484f58;
+}
+
+body.dark-mode .icon-btn:hover {
+  color: #E00404;
+}
+
+body.dark-mode .btn-outline {
+  border-color: rgba(224, 4, 4, 0.5);
+  color: #f85149;
+}
+
+body.dark-mode .btn-outline:hover {
+  background-color: rgba(224, 4, 4, 0.08);
+}
+
+body.dark-mode .success-card {
+  background-color: #161b22;
+  border-color: #21262d;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .success-icon {
+  background-color: rgba(5, 150, 105, 0.12);
+}
+
+body.dark-mode .settings-card {
+  background-color: #161b22;
+  border-color: #21262d;
+}
+
+body.dark-mode .setting-border-top {
+  border-top-color: #21262d;
+}
+
+body.dark-mode .slider {
+  background-color: #30363d;
+}
+
+body.dark-mode .app-footer {
+  background-color: #0d1117;
+  border-top-color: #21262d;
+}
+
+body.dark-mode .toast {
+  background: #1c2128;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .toast.success {
+  background: #238636;
+}
+
+body.dark-mode .toast.error {
+  background: #b91c1c;
+}
+
+/* ── Theme Toggle Button ── */
+.theme-toggle-btn {
+  background: rgba(224, 4, 4, 0.08);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  background: rgba(224, 4, 4, 0.12);
+  color: var(--primary-color);
+}
+
+body.dark-mode .theme-toggle-btn {
+  background: rgba(251, 191, 36, 0.08);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.15);
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+  background: rgba(251, 191, 36, 0.15);
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
 }
 
 .logo-container {
@@ -273,6 +417,10 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+}
+
+.setting-border-top {
+  border-top: 1px solid var(--border-color);
 }
 
 .setting-info {

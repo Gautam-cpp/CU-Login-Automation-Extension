@@ -13,13 +13,18 @@
 <body>
   <div class="app-container">
     <header class="app-header">
-      <div class="logo-container">
-        <i class="fas fa-graduation-cap logo-icon"></i>
+      <div class="header-left">
+        <div class="logo-container">
+          <i class="fas fa-graduation-cap logo-icon"></i>
+        </div>
+        <div class="title-container">
+          <h1>CU Login Assistant</h1>
+          <p>Secure Credential Manager</p>
+        </div>
       </div>
-      <div class="title-container">
-        <h1>CU Login Assistant</h1>
-        <p>Secure Credential Manager</p>
-      </div>
+      <button id="themeToggleBtn" type="button" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
     </header>
 
     <main class="app-content">
@@ -68,6 +73,16 @@
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="autoLoginToggleSaved">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setting-item setting-border-top">
+            <div class="setting-info">
+              <span class="setting-label">Dark Mode</span>
+              <span class="setting-desc">Website & extension theme</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="darkModeToggleSaved">
               <span class="slider"></span>
             </label>
           </div>
