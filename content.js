@@ -1,3 +1,7 @@
+if (window.location.href.toLowerCase().includes('landingpage.aspx')) {
+  window.location.replace('https://students.cuchd.in/StudentHome.aspx');
+}
+
 async function autoLogin() {
   try {
     const credentials = await new Promise((resolve) => {
